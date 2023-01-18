@@ -1,0 +1,25 @@
+---
+ - name: mini kube start 
+   hosts: all
+   become: no 
+   tasks:
+     - name: delete old deployment 
+       command: kubectl delete deployment --all
+       register: deploy
+     - debug:
+         var: deploy
+     - name: delete old svc
+       command: kubectl delete svc --all
+       register: change
+     - debug:
+         var: change 
+     - name: crerate deployment 
+       command: kubectl create -f /home/ubuntu/project/Deployment.yml
+       register: createdp
+     - debug: 
+         var: createdp      
+     - name: start minikube 
+       command: kubectl create -f  /home/ubuntu/project/Service.yml
+       register: mini
+     - debug: 
+         var: mini

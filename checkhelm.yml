@@ -1,0 +1,41 @@
+---
+ - name: starting the kubernetes server 
+   hosts: all
+   tasks:
+     - name: starting the k8s
+       become: no
+       command: minikube start 
+       ignore_errors: yes  
+       register: mini
+     - debug:
+         var: mini
+     - name: get nodes
+       become: yes
+       command: kubectl get nodes
+       register: nodes
+       ignore_errors: true  
+     - debug:
+         var: nodes
+     - name: get pods 
+       command: kubectl get pods -o wide
+       register: pods
+     - debug:
+        var: pods     
+     - name: coping file form ansible to k8s
+       copy:
+         src: arjun.txt
+         dest: /home/ubuntu/project/
+       ignore_errors: yes   
+     - debug:
+         msg: copied
+     - name: file creation 
+       file:
+          path: demon
+          state: present
+     - name: user creation 
+       user:
+         name: kube
+         state: depresent       
+       ignore_errors: true
+
+

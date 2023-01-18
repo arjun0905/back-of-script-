@@ -1,0 +1,6 @@
+---
+ - name: get pods 
+   hosts: all
+   tasks:
+     - name: get pods 
+     command: kubectl get pods 

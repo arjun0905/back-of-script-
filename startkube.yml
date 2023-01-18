@@ -1,0 +1,23 @@
+---
+ - name: starting the kubernetes server 
+   hosts: k8s
+   tasks:
+     - name: starting the kuberneters server       
+       command: minikube start 
+       register: start
+       ignore_errors: yes 
+     - debug: 
+         var: start
+     - name: checking nodes 
+       command: kubectl get nodes
+       register: nod
+     - debug:
+         var: nod
+     - name: putting message 
+       command: echo " minikube sucefully started"
+     - name: file creation 
+       file:
+         path: /home/ubuntu/dir1
+         state: directory
+
+

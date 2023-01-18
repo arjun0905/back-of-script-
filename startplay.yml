@@ -1,0 +1,22 @@
+---
+ - name: starting system
+   hosts: all
+   tasks:
+     - name: first task is sudo permissio to docker 
+       become: yes
+       command: chmod 777 /var/run/docker.sock
+       register: su
+       ignore_errors: yes
+     - debug:
+         var: su
+     - name: start the mini kube with all cluster
+       command: minikube start       
+       register: mini
+     - debug:
+         var: mini
+     - name: check nodes 
+       command: kubectl get nodes -o wide
+       register: node
+     - debug:
+         var: node      
+         

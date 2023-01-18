@@ -1,0 +1,4 @@
+---
+# vars file for apacherole
+pkg: apache2
+dest: /var/www/html

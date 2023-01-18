@@ -1,0 +1,13 @@
+---
+ - name: installing "{{ pkg }}"
+   apt: 
+     name: "{{ pkg }}"
+     state: present
+   notify: reload
+ - name: deployment
+   copy: 
+     src: index.html
+     dest: "{{dest}}"
+   notify: reload
+
+

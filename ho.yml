@@ -1,0 +1,11 @@
+---
+ - name: git
+   hosts: all 
+   become: yes
+   tasks: 
+     - name: installing git 
+       apt:
+         name: git 
+         state: present 
+
+   
